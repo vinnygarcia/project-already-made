@@ -1,0 +1,12 @@
+body{
+    background-color: lightblue;
+    text-align: center;
+}
+
+#gamebox{
+    background-color: white;
+    padding-bottom: 2em;
+    margin: auto;
+    width: 85%;
+    border-radius: 3%;
+}

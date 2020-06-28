@@ -1,0 +1,70 @@
+-Problema 1:entender como pegar a informação do formulário e trabalhar com ela.
+Estudei então sobre event listeners (o que não foi aplicado ainda, apenas diretamente no HTML do form/input).
+A solução aplicada foi através do "document.getElementById("palavraInput").value"
+
+
+-Problema 2: entender o pq pressionar o botão e rodar a função, a página atualizava automaticamente
+ao completar a função.
+Um dos motivos é que o botão submit atualiza automaticamente a página zerando as informações:
+Esse problema foi resolvido retornando 'false' na chamada da função através do botão, o que impede o formulário 
+de ser enviado.
+A solução para esse problema se eu tivesse usado um eventlistener ao pressionar o botão seria acrescentar 
+o event.preventDefault(), que poder ser usado para previnir qualquer comportamento automático do browser, como abrir
+um link quando clicado.
+(https://stackoverflow.com/questions/1878264/how-do-i-make-an-html-button-not-reload-the-page
+Ao utilizar <button type='button'> ou <input type='button'> fora de um <form> tb não atualiza. Mas dentro do form é
+necessário fazer da forma que eu fiz, retornando falso no form, ou então talvez usando <input type='button' form=''>.)
+
+
+-Problema 3: ao pressionar o botão, a página só atualiza uma única vez, ao final da função. Portanto toda modificação no
+DOM feita dentra dessa função, só se aplica no final.
+Solução: O comportamento é normal, o ideal é trabalhar em torno disso, adaptando às atualizações do DOM para ocorrerem
+a cada pressionameto de botão. Criando formulários para preencher os dados em vez de prompts fora da página.
+
+
+-Problema 4: Minhas alterações com CSS não estavam funcionando, somente a primeira
+Solução: Estava colocando ';' no final de cada '}', o que não deve ser feito no CSS. Foi só retirar que funcionou.
+
+TODO:
+1- Adicionar div para pegar inputs do jogo pelo JS, juntar no fluxo do jogo
+2- Adicionar div para mostrar a forca
+
+-Problema 5: Não estava conseguindo fazer uma string com multiplas linhas (var html =...)
+Solução: Usar string literals backticks(`) em vez de single(') ou double quotes(").
+https://flaviocopes.com/javascript-template-literals/
+Também posso fazer igual ao python( que usar f"...{variable + 1}...") usando "...${variable + 1}..."
+Mais dicas de inserir html de modo avançado usando string literals: https://wesbos.com/template-strings-html
+
+-PROBLEMA 6!!!!: Não estava conseguindo trabalhar com os módulos importados, nem no terminal nem ao clickar em botões,
+as funções não eram reconhecidas.
+Solução: https://stackoverflow.com/questions/44590393/es6-modules-undefined-onclick-function-after-import
+Objetos importados tem seu próprio escopo, é necessário adicioná-los ao window para ter acesso normal ou então
+usar eventlisteners. No caso, para usar a função main() só consegui adicionando um listener, o resto fiz declarando
+em window.
+Nunca devemos chamar uma função pelo botão (onclick/onsubmit='f();return false') e sim através de um eventlistener.
+Isso é conhecimdo como Unobtrusive JavaScript - ao html deve ficar somente a estrutura, a programação deve vir toda 
+do javascript para facilitar a manutenção de cógido.
+https://en.wikipedia.org/wiki/Unobtrusive_JavaScript
+
+Probema 7: Estava tendo erros ao tentar usar o event lister com um argumento, isso estava chamando a 
+função automaticamente sem eu entender da onde estava sendo chamada.
+Solução: https://stackoverflow.com/questions/12024483/how-to-pass-parameter-to-function-using-in-addeventlistener/41624191
+Não devo passar nenhum argumento para representar o elemento. Já é feito automaticamente.
+Ex de erro: botaoX.addEventListerner('click', xingar, false)
+O certo seria: botaoX.addEventListerner('click', xingar(botaoX), false)
+NA VERDADE: posso sim passar parâmetros usando uma função anônima para a chamar a função com parâmetros.
+element.addEventListener("click", function(){ myFunction(p1, p2); });
+
+Problema 8: Converter HTML escrito em um DOM element (node) para poder adicionar event listeners.
+Solução: https://stackoverflow.com/questions/3103962/converting-html-string-into-dom-elements
+O modo mais fácil é criar um element e inserir o html no elemento com 'elemento.innnerHtml = ...'
+
+Problema 9: Aparentemente eu posso acessar elementos de um form pelo nome do form.input etc.. o que me causa bugs no app se eu usar o mesmo nome que o form em
+uma variável.
+Also you can, call by tags names, like this: form_name.input_name.value; So you will have the specific value of determined input in a specific form.
+
+ESTUDAR: método observer e factory:
+não consegui entender ainda - https://www.youtube.com/watch?v=4OLCrClb_So&t=315s
+https://www.youtube.com/watch?v=arAz2Ff8s88
+ESTUDAR: async functions : https://hackernoon.com/javascript-promises-and-why-async-await-wins-the-battle-4fc9d15d509f
+https://medium.com/@jamischarles/how-to-chain-functions-in-javascript-6644d44793fd
